@@ -1,0 +1,3 @@
+simpleFoam_pumpCurveInlet.C
+
+EXE = $(FOAM_APPBIN)/simpleFoam_pumpCurveInlet
