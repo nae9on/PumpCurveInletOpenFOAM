@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  6
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      U;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    inlet
+    {
+        type            fixedValue;
+        value           uniform (20 0 0);
+    }
+
+    /*inlet
+    {
+        type            groovyBC;
+        valueExpression "(timeMod==0) ? vector(vInlet+0.5,0,0) : vector(vInlet,0,0)";
+        //valueExpression "(timeMod==0 && pInlet>-1*pc) ? vector(vInlet+0.5,0,0) : vector(vInlet,0,0)";
+        variables       "pInlet{inlet}=sum(p*mag(Sf()))/sum(mag(Sf()));vInlet{inlet}=sum(mag(U)*mag(Sf()))/sum(mag(Sf()));timeMod=time()%500;pc=(-0.075*pow(vInlet-5,2)+15);";
+        value           uniform (5 0 0);
+    }*/
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+
+    upperWall
+    {
+        type            noSlip;
+    }
+
+    lowerWall
+    {
+        type            noSlip;
+    }
+
+    frontAndBack
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //
